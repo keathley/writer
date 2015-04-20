@@ -6,26 +6,13 @@ var md = new Remarkable('commonmark')
 var DocumentStore = require('../stores/DocumentStore.js')
 
 var Preview = React.createClass({
-  init: function(text) {
-    this.setState({text: text})
-  },
-  componentDidMount: function() {
-    this.unsubscribe = DocumentStore.listen(this.onTextChange, this.init)
-  },
-  componentWillUnmount: function() {
-    this.unsubscribe()
-  },
-  onTextChange: function(newText) {
-    this.setState({
-      text: newText
-    })
-  },
+  mixins: [Reflux.connect(DocumentStore, "text")],
   render: function() {
     var text = this.state.text
 
     return (
       <div className="preview">
-        {md.render(text)}
+        <span dangerouslySetInnerHTML={{__html: md.render(text)}} />
       </div>
     );
   }

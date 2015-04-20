@@ -1,5 +1,6 @@
 var React = require('react')
   , Router = require('react-router')
+  , Reflux = require('reflux')
 
 var Document = require('./components/Document.jsx')
   , Footer   = require('./components/Footer.jsx')
